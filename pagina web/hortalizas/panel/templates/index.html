@@ -1,0 +1,67 @@
+{% extends 'index_master.html' %}
+
+{% block content %}
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="container">
+                <header style="background-color: #4caf50; color: white; padding: 1em 0; text-align: center; border-radius: 8px; margin-top: 50px;">
+                    <h1 style="font-size: 2em; margin: 0;">Proyecto de Cuidado de Hortalizas</h1>
+                    <p style="font-size: 1.2em; margin: 0.5em 0 0;">Visión por Computadora y Procesamiento de Datos</p>
+                </header>
+                <div class="section" style="margin: 2em 0;">
+                    <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Introducción</h2>
+                    <p style="font-size: 1.1em; line-height: 1.6;">En este proyecto, hemos desarrollado un sistema integral para el cuidado de hortalizas utilizando visión por computadora y procesamiento de datos. El proyecto se divide en dos partes principales:</p>
+            
+    
+            <div class="section" style="margin: 2em 0; display: flex; flex-wrap: wrap;">
+                <div class="col-md-6">
+                    <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Visión por Computadora</h2>
+                    <p style="font-weight: bold; font-size: 1.2em;">Responsable: Kevin</p>
+                    <p style="font-size: 1.1em; line-height: 1.6;">Utilizando técnicas de visión por computadora, cargamos imágenes de las plantas y aplicamos varios filtros y codificaciones de colores para analizar su estado. Este análisis permite determinar si las plantas son propensas a tener hongos, basándose en los porcentajes obtenidos.</p>
+                    <a href="kevin" class="btn btn-primary" style="margin-top: 1em; border: 1px solid green; background-color: #4caf50;">Ver más detalles</a>
+
+                </div>
+                <div class="col-md-6">
+                    <img src="../static/FrWork/admin_lte/build/images/vision.jpg" alt="Visión por Computadora" style="width: 100%; height: auto; object-fit: cover; display: block; margin: 1em auto; border-radius: 8px;">
+                </div>
+            </div>
+    
+            <div class="section" style="margin: 2em 0; display: flex; flex-wrap: wrap;">
+                <div class="col-md-6">
+                    <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Procesamiento de Datos</h2>
+                    <p style="font-weight: bold; font-size: 1.2em;">Responsable: Sebastián</p>
+                    <p style="font-size: 1.1em; line-height: 1.6;">Mediante el procesamiento de datos obtenidos de las hortalizas (como temperatura, humedad y pH), limpiamos y analizamos los datos para generar estadísticas útiles. Estas estadísticas nos ayudan a evaluar la calidad de los cultivos, clasificándolos en buenos, regulares o malos.</p>
+                    <a href="sebas" class="btn btn-primary" style="margin-top: 1em; border: 1px solid green; background-color: #4caf50;">Ver más detalles</a>
+
+                </div>
+                <div class="col-md-6">
+                    <img src="../static/FrWork/admin_lte/build/images/procesamiento.jpg" alt="Procesamiento de Datos" style="width: 100%; height: auto; object-fit: cover; display: block; margin: 1em auto; border-radius: 8px;">
+                </div>
+            </div>
+    
+            <div class="section" style="margin: 2em 0; display: flex; flex-wrap: wrap;">
+                <div class="col-md-6">
+                    <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Implementación</h2>
+                    <p style="font-size: 1.1em; line-height: 1.6;">El proyecto se implementó utilizando microcontroladores como el ESP32, Raspberry Pi 4 y un NAS para el almacenamiento y procesamiento de datos.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="../static/FrWork/admin_lte/build/images/esp32.jpg" alt="Implementación" style="width: 100%; height: auto; object-fit: cover; display: block; margin: 1em auto; border-radius: 8px;">
+                </div>
+            </div>
+    
+            <div class="section" style="margin: 2em 0; display: flex; flex-wrap: wrap;">
+                <div class="col-md-6">
+                    <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Desarrollo de la Página Web</h2>
+                    <p style="font-size: 1.1em; line-height: 1.6;">Estamos creando una página web con Django que servirá como una plataforma central para explicar el proyecto en términos generales y mostrar nuestros resultados. La página incluirá secciones detalladas sobre cada parte del proyecto y permitirá a los usuarios cargar sus propios datos para evaluar la calidad de sus cultivos.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="../static/FrWork/admin_lte/build/images/django.png" alt="Página Web" style="width: 100%; height: auto; object-fit: cover; display: block; margin: 1em auto; border-radius: 8px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
+        <!-- /page content -->
+{% endblock %}

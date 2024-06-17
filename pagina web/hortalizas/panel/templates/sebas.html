@@ -1,0 +1,181 @@
+{% extends 'index_master.html' %}
+
+{% block content %}
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="container">
+            <style>
+                .alert-banner {
+                    display: none;
+                    padding: 20px;
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    text-align: center;
+                    z-index: 1000;
+                }
+                .alert-green {
+                    background-color: #4CAF50; /* Verde */
+                    color: white;
+                }
+                .alert-red {
+                    background-color: #f44336; /* Rojo */
+                    color: white;
+                }
+                .alert-yellow {
+                    background-color: #ffeb3b; /* Amarillo */
+                    color: black;
+                }
+            </style>
+            <header style="background-color: #4caf50; color: white; padding: 1em 0; text-align: center; border-radius: 8px; margin-top: 50px;">
+                <h1 style="font-size: 2em; margin: 0;">Proyecto de Cuidado de Hortalizas</h1>
+                <p style="font-size: 1.2em; margin: 0.5em 0 0;">Visión por Computadora y Procesamiento de Datos</p>
+            </header>
+            <div class="section" style="margin: 2em 0;">
+                <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em; text-align: center;">Formulario de Entrada de Datos</h2>
+                <form action="sebas" method="POST" style="background-color: #e8f5e9; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                    {% csrf_token %}
+                    <div style="margin-bottom: 1em;">
+                        <label for="hortaliza" style="font-size: 1.1em; font-weight: bold; color: #4caf50;">Tipo de Hortaliza:</label>
+                        <select id="hortaliza" name="hortaliza" style="width: 100%; padding: 0.5em; font-size: 1.1em; border: 1px solid #4caf50; border-radius: 4px;">
+                            <option value="lechuga">Lechuga</option>
+                            <option value="jitomate">Jitomate</option>
+                            <option value="papa">Papa</option>
+                            <option value="zanahoria">Zanahoria</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 1em;">
+                        <label for="temperatura" style="font-size: 1.1em; font-weight: bold; color: #4caf50;">Temperatura (°C):</label>
+                        <input type="number" id="temperatura" name="temperatura" step="0.1" value="0" style="width: 100%; padding: 0.5em; font-size: 1.1em; border: 1px solid #4caf50; border-radius: 4px;">
+                    </div>
+                    <div style="margin-bottom: 1em;">
+                        <label for="humedad" style="font-size: 1.1em; font-weight: bold; color: #4caf50;">Humedad (%):</label>
+                        <input type="number" id="humedad" name="humedad" step="0.1" value="0" style="width: 100%; padding: 0.5em; font-size: 1.1em; border: 1px solid #4caf50; border-radius: 4px;">
+                    </div>
+                    <div style="margin-bottom: 1em;">
+                        <label for="ph" style="font-size: 1.1em; font-weight: bold; color: #4caf50;">pH:</label>
+                        <input type="number" id="ph" name="ph" step="0.1" value="0" style="width: 100%; padding: 0.5em; font-size: 1.1em; border: 1px solid #4caf50; border-radius: 4px;">
+                    </div>
+                    <button type="submit" style="background-color: #4caf50; color: white; font-size: 1.1em; padding: 0.7em 1.5em; border: none; border-radius: 4px; cursor: pointer;">Enviar</button>
+                </form>
+                <div id="alert-banner" class="alert-banner">
+                    <div id="valor-numerico" data-valor="{{ parametro }}"></div>
+                    <span id="alert-message" style="text-align: center;"></span>
+                </div>
+                
+                <script>
+                    // Obtén el número aleatorio del contexto
+                    var div = document.getElementById('valor-numerico');
+                    var randomNumber = div.getAttribute('data-valor');
+                    
+                    // Define la función para mostrar el banner con el mensaje y el estilo adecuado
+                    function showAlertBanner(message, styleClass) {
+                        const banner = document.getElementById('alert-banner');
+                        const alertMessage = document.getElementById('alert-message');
+                        alertMessage.innerText = message;
+                        banner.classList.add(styleClass);
+                        banner.style.display = 'block';
+
+                        // Después de 5 segundos, oculta el banner
+                        setTimeout(() => {
+                            banner.style.display = 'none';
+                                    }, 5000);
+                    }
+            
+                    // Define los mensajes y las clases de estilo para cada número
+                    const messagesAndStyles = {
+                        0: {message: 'La humedad, temperatura y ph son correctos', styleClass: 'alert-green'},
+                        1: {message: 'El ph esta mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        2: {message: 'La temperatura esta mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        3: {message: 'La temperatura y el ph están mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        4: {message: 'La humedad esta mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        5: {message: 'La humedad y el ph están mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        6: {message: 'La humedad y la temperatura están mal, Checa la tabla de abajo', styleClass: 'alert-yellow'},
+                        7: {message: 'La temperatura, el ph y la humedad están mal, Checa la tabla de abajo', styleClass: 'alert-red'},
+                        8: {message: 'No se encuentran los datos', styleClass: 'alert-red'},
+                    };
+            
+                    // Muestra el banner con el mensaje y el estilo correspondiente al número aleatorio
+                    if (randomNumber in messagesAndStyles) {
+                        const { message, styleClass } = messagesAndStyles[randomNumber];
+                        showAlertBanner(message, styleClass);
+                    }
+                </script>
+            </div>
+            <div class="section" style="margin: 2em 0;">
+                <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Introducción</h2>
+                <p style="font-size: 1.1em; line-height: 1.6;">En este proyecto, hemos desarrollado un sistema integral para el cuidado de hortalizas utilizando visión por computadora y procesamiento de datos. El proyecto se divide en dos partes principales:</p>
+                <p style="font-weight: bold; font-size: 1.2em;">Responsable: Sebastián</p>
+            </div>
+            <div class="section" style="margin: 2em 0;">
+                <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Valores Utilizados como Referencia</h2>
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid #4caf50; border-radius: 8px;">
+                    <thead style="background-color: #4caf50; color: white;">
+                        <tr>
+                            <th style="padding: 0.8em;">Hortaliza</th>
+                            <th style="padding: 0.8em;">Temperatura Máxima (°C)</th>
+                            <th style="padding: 0.8em;">Temperatura Mínima (°C)</th>
+                            <th style="padding: 0.8em;">Humedad Máxima (%)</th>
+                            <th style="padding: 0.8em;">Humedad Mínima (%)</th>
+                            <th style="padding: 0.8em;">pH Máximo</th>
+                            <th style="padding: 0.8em;">pH Mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.8em;">Lechuga</td>
+                            <td style="padding: 0.8em;">28</td>
+                            <td style="padding: 0.8em;">7</td>
+                            <td style="padding: 0.8em;">80</td>
+                            <td style="padding: 0.8em;">50</td>
+                            <td style="padding: 0.8em;">7.0</td>
+                            <td style="padding: 0.8em;">6.0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em;">Jitomate</td>
+                            <td style="padding: 0.8em;">35</td>
+                            <td style="padding: 0.8em;">1</td>
+                            <td style="padding: 0.8em;">90</td>
+                            <td style="padding: 0.8em;">60</td>
+                            <td style="padding: 0.8em;">7.5</td>
+                            <td style="padding: 0.8em;">5.5</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em;">Papa</td>
+                            <td style="padding: 0.8em;">27</td>
+                            <td style="padding: 0.8em;">5</td>
+                            <td style="padding: 0.8em;">90</td>
+                            <td style="padding: 0.8em;">60</td>
+                            <td style="padding: 0.8em;">7.0</td>
+                            <td style="padding: 0.8em;">5.0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.8em;">Zanahoria</td>
+                            <td style="padding: 0.8em;">30</td>
+                            <td style="padding: 0.8em;">5</td>
+                            <td style="padding: 0.8em;">90</td>
+                            <td style="padding: 0.8em;">60</td>
+                            <td style="padding: 0.8em;">7.5</td>
+                            <td style="padding: 0.8em;">5.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section" style="margin: 2em 0;">
+                <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Origen de los Datos y Métodos Utilizados</h2>
+                <p style="font-size: 1.1em; line-height: 1.6;">Los datos mostrados en la tabla anterior fueron obtenidos a través de un proceso de limpieza de datasets utilizando Python y varias librerías especializadas como pandas, numpy, matplotlib y seaborn. Además, se llevaron a cabo investigaciones en libros y sitios web especializados para obtener referencias sobre los valores óptimos de temperatura, humedad y pH para las hortalizas seleccionadas (Lechuga, Jitomate, Papa y Zanahoria).</p>
+                <p style="font-size: 1.1em; line-height: 1.6;">Este enfoque nos permitió establecer rangos claros de valores máximos y mínimos que son considerados ideales para el cultivo de cada tipo de hortaliza. Estos datos son fundamentales para la evaluación de la calidad de los cultivos y para la generación de recomendaciones basadas en análisis estadísticos y científicos.</p>
+            </div>
+            <div class="section" style="margin: 2em 0;">
+                <h2 style="color: #4caf50; font-size: 1.5em; margin-bottom: 0.5em;">Futuro del Proyecto</h2>
+                <p style="font-size: 1.1em; line-height: 1.6;">El proyecto se encuentra actualmente en una etapa inicial de desarrollo. En un futuro próximo, tenemos planeado implementar la integración de esta página web con cultivos reales. Esto nos permitirá realizar un monitoreo constante y en tiempo real de los parámetros vitales de las plantas, como temperatura, humedad y pH.</p>
+                <p style="font-size: 1.1em; line-height: 1.6;">La conexión con cultivos reales no solo facilitará la recolección de datos precisos, sino que también abrirá la puerta a la automatización y optimización del cuidado de las hortalizas mediante técnicas avanzadas de análisis de datos y machine learning.</p>
+                <a href="index" class="btn btn-primary" style="margin-top: 1em; border: 1px solid green; background-color: #4caf50;">Regresar</a>
+
+            </div>
+            
+    </div>
+  
+    <!-- /page content -->
+{% endblock %}
